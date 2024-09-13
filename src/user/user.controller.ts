@@ -11,7 +11,7 @@ export class UserController {
     @HttpCode(HttpStatus.ACCEPTED)
     async loginUser(@Body() dadosRecebidos: SalvarUsuarioDto) {
         try {
-            const usuario = await this.userService.loginUser(dadosRecebidos);
+            await this.userService.loginUser(dadosRecebidos);
         }catch (error) {
             
             throw new Error('Erro ao criar usuário: ' + error.message);

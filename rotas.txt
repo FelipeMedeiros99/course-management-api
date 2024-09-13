@@ -1,0 +1,15 @@
+post 
+/login
+
+recebe um body no formato
+
+{
+    "nome": "fulaono"
+}
+
+retorna o status 202
+
+
+get 
+/cursos
+recebe array de cursos
