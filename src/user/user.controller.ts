@@ -1,12 +1,23 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Post, Body, HttpCode, HttpStatus } from '@nestjs/common';
 import { UserService } from './user.service';
+import { SalvarUsuarioDto } from 'src/dto/salvar-usuario.dto';
 
-@Controller('usuarios')
+
+@Controller()
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+    constructor(private readonly userService: UserService) { }
 
-  @Get()
-  async getAllUsers(): Promise<any[]> {
-    return this.userService.findAll();
-  }
+    @Post("login")
+    @HttpCode(HttpStatus.ACCEPTED)
+    async loginUser(@Body() dadosRecebidos: SalvarUsuarioDto) {
+        try {
+            const usuario = await this.userService.loginUser(dadosRecebidos);
+        }catch (error) {
+            
+            throw new Error('Erro ao criar usuário: ' + error.message);
+        }
+    }
 }
+
+
+
