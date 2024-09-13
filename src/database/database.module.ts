@@ -4,7 +4,10 @@ import * as dotenv from "dotenv";
 
 dotenv.config()
 const {LINK_DATABASE} = process.env
-console.log(LINK_DATABASE)
+
+if(!LINK_DATABASE){
+  throw new Error(`o link do banco está incorreto: ${LINK_DATABASE}`) 
+}
 
 @Global()
 @Module({
@@ -12,7 +15,8 @@ console.log(LINK_DATABASE)
     {
       provide: 'PG_CONNECTION',
       useValue: new Pool({
-        connectionString: LINK_DATABASE
+        connectionString: LINK_DATABASE,
+        ssl: { rejectUnauthorized: false }
       }),
     },
   ],
