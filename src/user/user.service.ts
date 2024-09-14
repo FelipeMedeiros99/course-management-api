@@ -28,6 +28,7 @@ export class UserService {
         const resposta = await client.query(inserirUsuarioNoBanco, [dados.nome])
         return resposta.rows[0]
       }
+      return usuarioExiste.rows[0]
       
 
     } catch (error) {
