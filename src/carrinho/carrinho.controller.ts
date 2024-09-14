@@ -1,6 +1,7 @@
-import { Body, Controller, HttpCode, Post } from "@nestjs/common";
+import { Body, Get, Controller, Delete, HttpCode, Post, Param, Query } from "@nestjs/common";
 import { CarrinhoService } from "./carrinho.service";
 import { CarrinhoDto } from "src/dto/carrinho.dto";
+import { IdCarrinhoDto } from "src/dto/remover-do-carrinho.dto";
 
 @Controller()
 export class CarrinhoController{
@@ -11,6 +12,29 @@ export class CarrinhoController{
     async adicionarAoCarrinho(@Body() dadosCarrinho: CarrinhoDto){
         try{
             return this.carrinhoService.adicionarAoCarrinho(dadosCarrinho)
+        }catch(error){
+            throw new Error("Erro ao adicionar ao carrinho: " + error.message);
+        }
+    }
+
+
+    @Get("carrinho/:id")
+    @HttpCode(202)
+    async buscarCarrinhos(@Param('id') id: number){
+        console.log(id)
+        try{
+            return this.carrinhoService.verCarrinho(id)
+        }catch(error){
+            throw new Error("Erro ao adicionar ao carrinho: " + error.message);
+        }
+    }
+
+
+    @Delete("carrinho")
+    @HttpCode(202)
+    async removerDoCarrinho(@Query() dados: IdCarrinhoDto){
+        try{
+            return this.carrinhoService.removerDoCarrinho(dados)
         }catch(error){
             throw new Error("Erro ao adicionar ao carrinho: " + error.message);
         }

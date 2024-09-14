@@ -52,3 +52,14 @@ deve enviar um body no formato:
 }
 
 recebe um status de 202c
+
+delete("carrinho")
+
+remove o produto do id DO CARRINHO e do usuario especificado através de query:
+
+?id=1&&usuario_id=3
+retorna todos os produtos do carrinho do usuario em questao
+
+get("carrinho/:id")
+retorna os cursos presentes no carrinho do usuario do id na query
+
