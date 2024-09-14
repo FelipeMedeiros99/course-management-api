@@ -4,7 +4,7 @@ import { AppModule } from './app.module';
 import dotenv from "dotenv"
 
 async function bootstrap() {
-  dotenv.config
+  dotenv.config()
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(new ValidationPipe({
     transform: true,
