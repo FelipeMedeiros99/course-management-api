@@ -24,7 +24,7 @@ export class CursoService{
         }
 
 
-    }
+    };
 
     async salvarCurso(dadosCurso: CursoDto): Promise<any>{
         const banco = await this.db.connect();
@@ -59,7 +59,7 @@ export class CursoService{
         };
 
         
-    }
+    };
 
     async alterarCurso(dadosCurso: AlterarCursoDto): Promise<any>{
         const db = await this.db.connect();
@@ -91,5 +91,7 @@ export class CursoService{
         }finally{
             db.release();
         }
-    }
+    };
+
+    
 }

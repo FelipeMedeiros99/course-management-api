@@ -1,5 +1,4 @@
-post 
-/login
+post("/login")
 
 recebe um body no formato
 
@@ -10,12 +9,10 @@ recebe um body no formato
 retorna o status 202
 
 
-get 
-/cursos
+get("/cursos")
 recebe array de cursos
 
-post 
-
+post("/cursos")
 
 deve ser enviado um body no formato 
 {
@@ -29,8 +26,7 @@ deve ser enviado um body no formato
 
 recebera como resposta um array com todos os cursos
 
-put
-/cursos
+put("/cursos")
 
 deve enviar um json no formato:
 {
@@ -44,3 +40,15 @@ deve enviar um json no formato:
 }
 
 receberá um array com todos os cursos
+
+
+post("/carrinho")
+
+deve enviar um body no formato:
+
+{
+    "usuario_id": 12,
+    "curso_id": 4
+}
+
+recebe um status de 202c
