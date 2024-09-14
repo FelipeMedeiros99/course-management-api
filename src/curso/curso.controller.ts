@@ -1,6 +1,7 @@
-import { Controller, Get, HttpCode, Post, Body } from "@nestjs/common";
+import { Controller, Get, HttpCode, Post, Body, Put } from "@nestjs/common";
 import { CursoService } from "./curso.service";
 import { CursoDto } from "src/dto/curso.dto";
+import { AlterarCursoDto } from "src/dto/alterar-curso.dto";
 
 @Controller()
 export class CursoController{
@@ -25,4 +26,16 @@ export class CursoController{
             throw new Error("Erro ao salvar curso: " + error.message)
         }
     }
+
+    @Put("cursos")
+    @HttpCode(202)
+    async alterarCurso(@Body() dadosCurso: AlterarCursoDto){
+        try{
+            return await this.cursoService.alterarCurso(dadosCurso)
+        }catch(error){
+            throw new Error("Erro ao alterar curso: " + error.message)
+        }
+    }
+
+
 }

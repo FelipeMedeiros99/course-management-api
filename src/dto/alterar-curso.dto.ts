@@ -1,6 +1,9 @@
-import { IsString, IsNumber, IsUrl, MinLength, MaxLength, IsNotEmpty } from 'class-validator';
+import { IsString, IsNumber, IsInt, IsUrl, MinLength, MaxLength, IsNotEmpty } from 'class-validator';
 
-export class CursoDto {
+export class AlterarCursoDto {
+    @IsInt({message: "O id deve ser um inteiro"})
+    id: number;
+    
     @IsString({ message: 'O nome deve ser uma string.' })
     @IsNotEmpty({ message: 'O nome não pode estar vazio.' })
     @MinLength(2, { message: 'O nome deve ter pelo menos 2 caracteres.' })
