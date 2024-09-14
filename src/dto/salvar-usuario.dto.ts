@@ -1,4 +1,4 @@
-import { IsString, IsInt, IsEmail, MinLength, MaxLength, IsNotEmpty } from 'class-validator';
+import { IsString, MinLength, MaxLength } from 'class-validator';
 
 
 export class SalvarUsuarioDto {
