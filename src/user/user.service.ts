@@ -25,7 +25,8 @@ export class UserService {
       
       if(!usuarioExiste.rows.length){
         // salvando usuario
-        return await client.query(inserirUsuarioNoBanco, [dados.nome])
+        const resposta = await client.query(inserirUsuarioNoBanco, [dados.nome])
+        return resposta.rows[0]
       }
       
 
