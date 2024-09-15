@@ -70,7 +70,7 @@ export class CarrinhoService {
         try {
 
             const buscarProdutos = await db.query(`
-                SELECT carrinho.id as codigo_carrinho, curso.*
+                SELECT carrinho.id as codigo_carrinho, curso.*, carrinho.pedido_finalizado as comprado
                 FROM carrinho 
                 JOIN curso ON carrinho.curso_id = curso.id
                 JOIN usuario ON carrinho.usuario_id = usuario.id
