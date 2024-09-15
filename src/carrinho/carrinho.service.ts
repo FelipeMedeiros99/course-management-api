@@ -85,4 +85,27 @@ export class CarrinhoService {
             db.release()
         }
     }
+
+    async alterarStatusDeCompra(dados:IdCarrinhoDto){
+        const db = await this.db.connect()
+
+        try{
+            const atualizaStatusQuery = `
+            UPDATE carrinho 
+            SET pedido_finalizado = true
+            where id =$1
+            `
+            const valores = [dados.id]
+
+            await db.query(atualizaStatusQuery, valores)
+
+            return this.verCarrinho(dados.usuario_id)
+
+
+        }catch(e){
+            throw new Error("Erro ao alterar status de compra: "+e)
+        }finally{
+            db.release()
+        }
+    }
 }

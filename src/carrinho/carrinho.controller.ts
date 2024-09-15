@@ -1,4 +1,4 @@
-import { Body, Get, Controller, Delete, HttpCode, Post, Param, Query } from "@nestjs/common";
+import { Body, Get, Controller, Delete, HttpCode, Post, Param, Query, Put } from "@nestjs/common";
 import { CarrinhoService } from "./carrinho.service";
 import { CarrinhoDto } from "src/dto/carrinho.dto";
 import { IdCarrinhoDto } from "src/dto/remover-do-carrinho.dto";
@@ -37,6 +37,16 @@ export class CarrinhoController{
             return this.carrinhoService.removerDoCarrinho(dados)
         }catch(error){
             throw new Error("Erro ao adicionar ao carrinho: " + error.message);
+        }
+    }
+
+    @Put("carrinho")
+    @HttpCode(214)
+    async alterarComoPago(@Query() dados: IdCarrinhoDto){
+        try{
+            return this.carrinhoService.alterarStatusDeCompra(dados)
+        }catch(e){
+            throw new Error("Erro ao tentar retornar status de compra: "+ e)
         }
     }
 
