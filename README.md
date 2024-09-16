@@ -15,6 +15,10 @@ localhost:5000/
 O servidor utilizado para o backend e armazenamento do banco de dados é hospedado na Render com uma licença gratuita. Devido a isso, pode haver momentos em que o servidor entra em hibernação, fazendo com que a primeira requisição demore a ser respondida, mas após a primeira requisição, o servidor encerra seu ciclo de hibernação e começa a funcionar de forma satisfatória e eficiente.
 
 
+## Link para a documentação do front-end:
+https://github.com/FelipeMedeiros99/Gerenciamento-de-cursos-frontend.git
+
+
 ## Variáveis de ambiente
 
 **Link para autorização de acesso no banco de dados:**
@@ -28,15 +32,15 @@ PORT=5000
 
 ### Login
 - **POST/login**
-- Deve obrigatoriamente receber um corpo no formato:
+Deve obrigatoriamente receber um corpo no formato:
 
 {
     "nome": "fulaono"
 }
 
-- O servidor irá verificar se o nome informado já está cadastrado, em caso negativo, irá cadastrá-lo e retornar com os seus dados
+O servidor irá verificar se o nome informado já está cadastrado, em caso negativo, irá cadastrá-lo e retornar com os seus dados
 
-- O servidor responde com um status 202 e um objeto no formato 
+O servidor responde com um status 202 e um objeto no formato 
 
 {
   "id": 23,
@@ -46,9 +50,9 @@ PORT=5000
 
 ### Cursos
 - **GET/cursos**
-- Rota destinada à busca dos cursos disponíveis.
+Rota destinada à busca dos cursos disponíveis.
 
-- Retorna um array de objetos, contendo todos os cursos cadastrados na plataforma, no formato:
+Retorna um array de objetos, contendo todos os cursos cadastrados na plataforma, no formato:
 
 [
   {
@@ -63,9 +67,9 @@ PORT=5000
 ]
 
 - **POST/cursos**
-- Rota destinada ao cadastro de um novo curso.
+Rota destinada ao cadastro de um novo curso.
 
-- O frontend deve enviar um corpo no formato:
+O frontend deve enviar um corpo no formato:
 {
     "nome": "Curso de Marketing em Mídias Sociais",
     "url_foto": "https://example.com/curso-marketing-midias-sociais.jpg",
@@ -76,15 +80,15 @@ PORT=5000
 }
 
 
-- O servidor devolverá um array contendo todos os cursos, incluindo o novo curso que foi adicionado. 
+O servidor devolverá um array contendo todos os cursos, incluindo o novo curso que foi adicionado. 
 
 - **PUT/cursos**
 
-- Rota dedicada à edição de cursos. Altera as informações presentes em um curso.
+Rota dedicada à edição de cursos. Altera as informações presentes em um curso.
 
-- O id do curso deve ser enviado, para que o servidor consiga identificar o curso que será alterado
+O id do curso deve ser enviado, para que o servidor consiga identificar o curso que será alterado
 
-- Deve enviar um corpo no formato:
+Deve enviar um corpo no formato:
 
 {
     "id": 1,
@@ -99,22 +103,22 @@ PORT=5000
 
 - **POST/carrinho** 
 
-- Rota destinada à adicionar cursos ao carrinho do usuário
+Rota destinada à adicionar cursos ao carrinho do usuário
 
-- Deve enviar um corpo no formato:
+Deve enviar um corpo no formato:
 
 {
     "usuario_id": 12,
     "curso_id": 4
 }
 
-- receberá como resposta um status 202
+receberá como resposta um status 202
 
 - **DELETE/carrinho?id="id_do_carrinho"&usuario_id=3** 
 
-- Rota destinada à remoção de um curso do carrinho
+Rota destinada à remoção de um curso do carrinho
 
-- Essa requisição deve ser feita através de querys, de forma que o formato seja: 
+Essa requisição deve ser feita através de querys, de forma que o formato seja: 
 
 {
     id: 4,          // deve ser o id do carrinho
@@ -123,17 +127,17 @@ PORT=5000
 
 - **GET/carrinho/id**
 
-- rota destinada à consulta de produtos presentes no carrinho, retornando todos os carrinhos do usuário presentes.
+rota destinada à consulta de produtos presentes no carrinho, retornando todos os carrinhos do usuário presentes.
 
-- Deve ser passado o id do usuário
+Deve ser passado o id do usuário
 
-- o servidor responde com um array contendo todos os cursos do usuário que estão no carrinho
+o servidor responde com um array contendo todos os cursos do usuário que estão no carrinho
 
 - **PUT/carrinho?id=4&usuario_id=1**
 
-- Rota destinada à edição do status de compra do usuario, confirmando a compra do curso.
+Rota destinada à edição do status de compra do usuario, confirmando a compra do curso.
 
-- Usa querys para efetuar a consulta, devendo seguir o formato:
+Usa querys para efetuar a consulta, devendo seguir o formato:
 
 {
     id: 4 // id do carrinho,
