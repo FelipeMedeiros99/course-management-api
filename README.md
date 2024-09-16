@@ -31,7 +31,7 @@ PORT=5000
 ## Endpoints
 
 ### Login
-**POST/login**
+**POST/login:**
 Deve obrigatoriamente receber um corpo no formato:
 
 {
@@ -49,7 +49,7 @@ O servidor responde com um status 202 e um objeto no formato
 
 
 ### Cursos
-- **GET/cursos**
+**GET/cursos:**
 Rota destinada à busca dos cursos disponíveis.
 
 Retorna um array de objetos, contendo todos os cursos cadastrados na plataforma, no formato:
@@ -66,7 +66,7 @@ Retorna um array de objetos, contendo todos os cursos cadastrados na plataforma,
   }
 ]
 
-- **POST/cursos**
+**POST/cursos:**
 Rota destinada ao cadastro de um novo curso.
 
 O frontend deve enviar um corpo no formato:
@@ -82,7 +82,7 @@ O frontend deve enviar um corpo no formato:
 
 O servidor devolverá um array contendo todos os cursos, incluindo o novo curso que foi adicionado. 
 
-- **PUT/cursos**
+**PUT/cursos:**
 
 Rota dedicada à edição de cursos. Altera as informações presentes em um curso.
 
@@ -101,7 +101,7 @@ Deve enviar um corpo no formato:
 }
 
 
-- **POST/carrinho** 
+**POST/carrinho:** 
 
 Rota destinada à adicionar cursos ao carrinho do usuário
 
@@ -114,7 +114,7 @@ Deve enviar um corpo no formato:
 
 receberá como resposta um status 202
 
-- **DELETE/carrinho?id="id_do_carrinho"&usuario_id=3** 
+**DELETE/carrinho?id="id_do_carrinho"&usuario_id=3:** 
 
 Rota destinada à remoção de um curso do carrinho
 
@@ -125,7 +125,7 @@ Essa requisição deve ser feita através de querys, de forma que o formato seja
     usuario_id: 4   // id do usuário
 }
 
-- **GET/carrinho/id**
+**GET/carrinho/id:**
 
 rota destinada à consulta de produtos presentes no carrinho, retornando todos os carrinhos do usuário presentes.
 
@@ -133,7 +133,7 @@ Deve ser passado o id do usuário
 
 o servidor responde com um array contendo todos os cursos do usuário que estão no carrinho
 
-- **PUT/carrinho?id=4&usuario_id=1**
+**PUT/carrinho?id=4&usuario_id=1:**
 
 Rota destinada à edição do status de compra do usuario, confirmando a compra do curso.
 
