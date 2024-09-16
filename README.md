@@ -1,85 +1,144 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# API de Gerenciamento de Cursos
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+- Bem-vindo à API de gerenciamento de cursos! Esta API foi desenvolvida com NestJS e oferece endpoints para o gerenciamento de cursos, usuario e carrinho de compras.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+- URL Base
+- A URL base para acessar a API com a instância na núvem é:
 
-## Description
+- https://gerenciamento-de-cursos-backend.onrender.com(https://gerenciamento-de-cursos-backend.onrender.com)
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- Localmente, ela está na porta 5000:
+localhost:5000/
 
-## Project setup
 
-```bash
-$ npm install
-```
+## Atenção
+O servidor utilizado para o backend e armazenamento do banco de dados é hospedado na Render com uma licença gratuita. Devido a isso, pode haver momentos em que o servidor entra em hibernação, devido a isso, a primeira requisição pode demorar a ser respondida devido à essa limitação do servidor, mas após a primeira requisição, o servidor encerra seu ciclo de hibernação e começa a funcionar de forma satisfatória e eficiente.
 
-## Compile and run the project
 
-```bash
-# development
-$ npm run start
+## Variáveis de ambiente
 
-# watch mode
-$ npm run start:dev
+- **Link para autorização de acesso no banco de dados:**
 
-# production mode
-$ npm run start:prod
-```
+LINK_DATABASE=postgresql://render_db_dr38_user:0Hl6oox5KwVOv9P5Z7M0oLl1dVPUIje3@dpg-crg8l4jv2p9s73a9r9s0-a.virginia-postgres.render.com/render_db_dr38
 
-## Run tests
+- **Porta de acesso:**
+PORT=5000
 
-```bash
-# unit tests
-$ npm run test
+## Endpoints
 
-# e2e tests
-$ npm run test:e2e
+### Login
+- **POST/login**
+- Deve obrigatoriamente receber um corpo no formato:
 
-# test coverage
-$ npm run test:cov
-```
+{
+    "nome": "fulaono"
+}
 
-## Resources
+- O servidor irá verificar se o nome informado já está cadastrado, em caso negativo, irá cadastrá-lo e retornar com os seus dados
 
-Check out a few resources that may come in handy when working with NestJS:
+- O servidor responde com um status 202 e um objeto no formato 
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+{
+  "id": 23,
+  "nome": "Diego Santos"
+}
 
-## Support
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+### Cursos
+- **GET/cursos**
+- Rota destinada à busca dos cursos disponíveis.
 
-## Stay in touch
+- Retorna um array de objetos, contendo todos os cursos cadastrados na plataforma, no formato:
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+[
+  {
+    "id": 3,
+    "nome": "Curso de Desenvolvimento de Jogos",
+    "preco": "399.99",
+    "preco_com_desconto": "349.99",
+    "carga_horaria": "50 horas",
+    "conteudo": "Curso sobre criação e desenvolvimento de jogos usando Unity e C#.",
+    "url_foto": "https://hotmart.s3.amazonaws.com/product_pictures/a70b4aad-9700-42b4-9331-803b2a4ba911/5dc64f37c83bd.jpeg"
+  }
+]
 
-## License
+- **POST/cursos**
+- Rota destinada ao cadastro de um novo curso.
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+- O frontend deve enviar um corpo no formato:
+{
+    "nome": "Curso de Marketing em Mídias Sociais",
+    "url_foto": "https://example.com/curso-marketing-midias-sociais.jpg",
+    "preco": 199.99,
+    "preco_com_desconto": 159.99,
+    "carga_horaria": "25 horas",
+    "conteudo": "Curso sobre estratégias e ferramentas para marketing em plataformas de redes sociais."
+}
+
+
+- O servidor devolverá um array contendo todos os cursos, incluindo o novo curso que foi adicionado. 
+
+- **PUT/cursos**
+
+- Rota dedicada à edição de cursos. Altera as informações presentes em um curso.
+
+- O id do curso deve ser enviado, para que o servidor consiga identificar o curso que será alterado
+
+- Deve enviar um corpo no formato:
+
+{
+    "id": 1,
+    "nome": "Curso de Programação",
+    "preco": "199.99",
+    "preco_com_desconto": "149.99",
+    "carga_horaria": "30 horas",
+    "conteudo": "Neste curso, você aprenderá os fundamentos da programação, incluindo variáveis, estruturas de controle, funções e muito mais.",
+    "url_foto": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTR3cE8l8oZ9kbeYARoBfCHzHafRIm7qY4Qlw&s"
+}
+
+
+- **POST/carrinho** 
+
+- Rota destinada à adicionar cursos ao carrinho do usuário
+
+- Deve enviar um corpo no formato:
+
+{
+    "usuario_id": 12,
+    "curso_id": 4
+}
+
+- receberá como resposta um status 202
+
+- **DELETE/carrinho?id="id_do_carrinho"&usuario_id=3** 
+
+- Rota destinada à remoção de um curso do carrinho
+
+- Essa requisição deve ser feita através de querys, de forma que o formato seja: 
+
+{
+    id: 4,          // deve ser o id do carrinho
+    usuario_id: 4   // id do usuário
+}
+
+- **GET/carrinho/id**
+
+- rota destinada à consulta de produtos presentes no carrinho, retornando todos os carrinhos do usuário presentes.
+
+- Deve ser passado o id do usuário
+
+- o servidor responde com um array contendo todos os cursos do usuário que estão no carrinho
+
+- **PUT/carrinho?id=4&usuario_id=1**
+
+- Rota destinada à edição do status de compra do usuario, confirmando a compra do curso.
+
+- Usa querys para efetuar a consulta, devendo seguir o formato:
+
+{
+    id: 4 // id do carrinho,
+    usuario_id // id do usuário
+}
+
+retorna um array contendo todos os produtos do carrinho, inclusive o que acabou de ser alterado.
+

@@ -1,3 +1,9 @@
+dados salvos no localstorage:
+usuario
+
+
+link= https://gerenciamento-de-cursos-backend.onrender.com
+
 post("/login")
 
 recebe um body no formato
@@ -53,7 +59,7 @@ deve enviar um body no formato:
 
 recebe um status de 202c
 
-delete("carrinho")
+delete("carrinho/id")
 
 remove o produto do id DO CARRINHO e do usuario especificado através de query:
 
@@ -63,3 +69,5 @@ retorna todos os produtos do carrinho do usuario em questao
 get("carrinho/:id")
 retorna os cursos presentes no carrinho do usuario do id na query
 
+put("carrinho?id=4&usuario_id=1")
+alterar status de compra
