@@ -7,6 +7,6 @@ export class AppController {
 
   @Get()
   getHello(): string {
-    return "teste";
+  return "Bem vindo ao servidor da plataforma de cursos online!";
   }
 }
