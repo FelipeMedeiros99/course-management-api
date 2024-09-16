@@ -15,9 +15,41 @@ localhost:5000/
 O servidor utilizado para o backend e armazenamento do banco de dados é hospedado na Render com uma licença gratuita. Devido a isso, pode haver momentos em que o servidor entra em hibernação, fazendo com que a primeira requisição demore a ser respondida, mas após a primeira requisição, o servidor encerra seu ciclo de hibernação e começa a funcionar de forma satisfatória e eficiente.
 
 
-## Link para a documentação do front-end:
-https://github.com/FelipeMedeiros99/Gerenciamento-de-cursos-frontend.git
+## Requisitos
 
+- **Node.js**: Certifique-se de ter o Node.js instalado. Recomendado a versão LTS.
+- **npm** ou **yarn**: Gerenciador de pacotes para instalar as dependências.
+
+## Instalação
+
+1. Clone o repositório:
+
+   ```bash
+   git clone https://github.com/FelipeMedeiros99/Gerenciamento-de-cursos-backend.git
+
+2. Navegue até o diretório do projeto:
+
+   ```bash
+    cd gerenciamentos-de-cursos-backend
+
+
+4. Instale as dependências:
+
+    ```bash
+    npm install
+    // ou
+    yarn install
+
+
+## Configuração 
+
+1. Crie um arquivo .env na raiz do projeto e adicione a URL base do banco de dados e da porta :
+
+
+    ```
+    LINK_DATABASE=postgresql://render_db_dr38_user:0Hl6oox5KwVOv9P5Z7M0oLl1dVPUIje3@dpg-crg8l4jv2p9s73a9r9s0-a.virginia-postgres.render.com/render_db_dr38
+
+    PORT=5000
 
 ## Variáveis de ambiente
 
@@ -156,4 +188,8 @@ PORT=5000
 }
 ```
 - retorna um array contendo todos os produtos do carrinho, inclusive o que acabou de ser alterado.
+
+
+## Link para a documentação do front-end:
+https://github.com/FelipeMedeiros99/Gerenciamento-de-cursos-frontend.git
 
