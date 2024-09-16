@@ -30,18 +30,18 @@ PORT=5000
 - **POST/login**
 - Deve obrigatoriamente receber um corpo no formato:
 
-'''{
+{
     "nome": "fulaono"
-}'''
+}
 
 - O servidor irá verificar se o nome informado já está cadastrado, em caso negativo, irá cadastrá-lo e retornar com os seus dados
 
 - O servidor responde com um status 202 e um objeto no formato 
 
-'''{
+{
   "id": 23,
   "nome": "Diego Santos"
-}'''
+}
 
 
 ### Cursos
@@ -50,7 +50,7 @@ PORT=5000
 
 - Retorna um array de objetos, contendo todos os cursos cadastrados na plataforma, no formato:
 
-"""[
+[
   {
     "id": 3,
     "nome": "Curso de Desenvolvimento de Jogos",
@@ -60,20 +60,20 @@ PORT=5000
     "conteudo": "Curso sobre criação e desenvolvimento de jogos usando Unity e C#.",
     "url_foto": "https://hotmart.s3.amazonaws.com/product_pictures/a70b4aad-9700-42b4-9331-803b2a4ba911/5dc64f37c83bd.jpeg"
   }
-]"""
+]
 
 - **POST/cursos**
 - Rota destinada ao cadastro de um novo curso.
 
 - O frontend deve enviar um corpo no formato:
-'''{
+{
     "nome": "Curso de Marketing em Mídias Sociais",
     "url_foto": "https://example.com/curso-marketing-midias-sociais.jpg",
     "preco": 199.99,
     "preco_com_desconto": 159.99,
     "carga_horaria": "25 horas",
     "conteudo": "Curso sobre estratégias e ferramentas para marketing em plataformas de redes sociais."
-}'''
+}
 
 
 - O servidor devolverá um array contendo todos os cursos, incluindo o novo curso que foi adicionado. 
@@ -86,7 +86,7 @@ PORT=5000
 
 - Deve enviar um corpo no formato:
 
-'''{
+{
     "id": 1,
     "nome": "Curso de Programação",
     "preco": "199.99",
@@ -94,7 +94,7 @@ PORT=5000
     "carga_horaria": "30 horas",
     "conteudo": "Neste curso, você aprenderá os fundamentos da programação, incluindo variáveis, estruturas de controle, funções e muito mais.",
     "url_foto": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTR3cE8l8oZ9kbeYARoBfCHzHafRIm7qY4Qlw&s"
-}'''
+}
 
 
 - **POST/carrinho** 
@@ -103,10 +103,10 @@ PORT=5000
 
 - Deve enviar um corpo no formato:
 
-'''{
+{
     "usuario_id": 12,
     "curso_id": 4
-}'''
+}
 
 - receberá como resposta um status 202
 
@@ -116,10 +116,10 @@ PORT=5000
 
 - Essa requisição deve ser feita através de querys, de forma que o formato seja: 
 
-'''{
+{
     id: 4,          // deve ser o id do carrinho
     usuario_id: 4   // id do usuário
-}'''
+}
 
 - **GET/carrinho/id**
 
@@ -135,10 +135,10 @@ PORT=5000
 
 - Usa querys para efetuar a consulta, devendo seguir o formato:
 
-'''{
+{
     id: 4 // id do carrinho,
     usuario_id // id do usuário
-}'''
+}
 
 retorna um array contendo todos os produtos do carrinho, inclusive o que acabou de ser alterado.
 
