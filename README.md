@@ -59,7 +59,7 @@ O servidor utilizado para o backend e armazenamento do banco de dados é hospeda
 
 ```json
 {
-    "nome": "fulaono"
+    "nome": "Diego Santos"
 }
 ```
 - O servidor irá verificar se o nome informado já está cadastrado, em caso negativo, irá cadastrá-lo e retornar com os seus dados
