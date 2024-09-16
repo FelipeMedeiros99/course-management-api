@@ -152,7 +152,7 @@ O servidor utilizado para o backend e armazenamento do banco de dados é hospeda
 - Essa requisição deve ser feita através de querys, de forma que o formato seja:
 
 ```
-   carrinho?id=3&usuario_id=1
+   /carrinho?id=3&usuario_id=1
 ```
 
 onde o id se refere ao id do carrinho, e o usuario_id ao id do próprio usuário.
