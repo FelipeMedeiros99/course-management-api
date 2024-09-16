@@ -31,7 +31,7 @@ PORT=5000
 ## Endpoints
 
 ### Login
-- **POST/login**
+**POST/login**
 Deve obrigatoriamente receber um corpo no formato:
 
 {
