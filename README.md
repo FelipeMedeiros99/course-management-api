@@ -50,7 +50,7 @@ PORT=5000
 
 - Retorna um array de objetos, contendo todos os cursos cadastrados na plataforma, no formato:
 
-'''[
+"""[
   {
     "id": 3,
     "nome": "Curso de Desenvolvimento de Jogos",
@@ -60,7 +60,7 @@ PORT=5000
     "conteudo": "Curso sobre criação e desenvolvimento de jogos usando Unity e C#.",
     "url_foto": "https://hotmart.s3.amazonaws.com/product_pictures/a70b4aad-9700-42b4-9331-803b2a4ba911/5dc64f37c83bd.jpeg"
   }
-]'''
+]"""
 
 - **POST/cursos**
 - Rota destinada ao cadastro de um novo curso.
