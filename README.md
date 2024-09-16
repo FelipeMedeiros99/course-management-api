@@ -1,13 +1,13 @@
 # API de Gerenciamento de Cursos
 
-- Bem-vindo à API de gerenciamento de cursos! Esta API foi desenvolvida com NestJS e oferece endpoints para o gerenciamento de cursos, usuario e carrinho de compras.
+Bem-vindo à API de gerenciamento de cursos! Esta API foi desenvolvida com NestJS e oferece endpoints para o gerenciamento de cursos, usuario e carrinho de compras.
 
-- URL Base
-- A URL base para acessar a API com a instância na núvem é:
+URL Base
+A URL base para acessar a API com a instância na núvem é:
 
-- https://gerenciamento-de-cursos-backend.onrender.com(https://gerenciamento-de-cursos-backend.onrender.com)
+https://gerenciamento-de-cursos-backend.onrender.com(https://gerenciamento-de-cursos-backend.onrender.com)
 
-- Localmente, ela está na porta 5000:
+Localmente, ela está na porta 5000:
 localhost:5000/
 
 
