@@ -96,7 +96,7 @@ PORT=5000
 
 - Deve enviar um corpo no formato:
 
-```
+```json
 {
     "id": 1,
     "nome": "Curso de Programação",
