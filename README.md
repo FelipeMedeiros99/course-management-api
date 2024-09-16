@@ -5,7 +5,7 @@ Bem-vindo à API de gerenciamento de cursos! Esta API foi desenvolvida com NestJ
 URL Base
 A URL base para acessar a API com a instância na núvem é:
 
-https://gerenciamento-de-cursos-backend.onrender.com(https://gerenciamento-de-cursos-backend.onrender.com)
+https://gerenciamento-de-cursos-backend.onrender.com
 
 Localmente, ela está na porta 5000:
 localhost:5000/
@@ -17,11 +17,11 @@ O servidor utilizado para o backend e armazenamento do banco de dados é hospeda
 
 ## Variáveis de ambiente
 
-- **Link para autorização de acesso no banco de dados:**
+**Link para autorização de acesso no banco de dados:**
 
 LINK_DATABASE=postgresql://render_db_dr38_user:0Hl6oox5KwVOv9P5Z7M0oLl1dVPUIje3@dpg-crg8l4jv2p9s73a9r9s0-a.virginia-postgres.render.com/render_db_dr38
 
-- **Porta de acesso:**
+**Porta de acesso:**
 PORT=5000
 
 ## Endpoints
