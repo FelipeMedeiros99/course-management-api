@@ -30,7 +30,7 @@ O servidor utilizado para o backend e armazenamento do banco de dados é hospeda
 2. Navegue até o diretório do projeto:
 
    ```bash
-    cd gerenciamentos-de-cursos-backend
+    cd plataforma-curso-backend
 
 
 4. Instale as dependências:
