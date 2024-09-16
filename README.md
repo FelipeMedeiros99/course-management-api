@@ -145,18 +145,18 @@ O servidor utilizado para o backend e armazenamento do banco de dados é hospeda
 ```
 - receberá como resposta um status 202
 
-**DELETE/carrinho?id="id_do_carrinho"&usuario_id=3:** 
+**DELETE/carrinho:** 
 
 - Rota destinada à remoção de um curso do carrinho
 
-- Essa requisição deve ser feita através de querys, de forma que o formato seja: 
+- Essa requisição deve ser feita através de querys, de forma que o formato seja:
 
-```json
-{
-    id: 4,          // deve ser o id do carrinho
-    usuario_id: 4   // id do usuário
-}
 ```
+   carrinho?id=3&usuario_id=1
+```
+
+onde o id se refere ao id do carrinho, e o usuario_id ao id do próprio usuário.
+
 
 **GET/carrinho/id:**
 
@@ -166,17 +166,14 @@ O servidor utilizado para o backend e armazenamento do banco de dados é hospeda
 
 - o servidor responde com um array contendo todos os cursos do usuário que estão no carrinho
 
-**PUT/carrinho?id=4&usuario_id=1:**
+**PUT/carrinho:**
 
 - Rota destinada à edição do status de compra do usuario, confirmando a compra do curso.
 
 - Usa querys para efetuar a consulta, devendo seguir o formato:
 
-```json
-{
-    id: 4 // id do carrinho,
-    usuario_id // id do usuário
-}
+```
+   /carrinho?id=4&usuario_id=1
 ```
 - retorna um array contendo todos os produtos do carrinho, inclusive o que acabou de ser alterado.
 
