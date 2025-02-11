@@ -1,6 +1,6 @@
 import { Controller, Post, Body, HttpCode, HttpStatus, Get } from '@nestjs/common';
 import { UserService } from './user.service';
-import { User } from '@prisma/client';
+import { SignInUserDto, SignUpUserDto } from 'src/dto/user.dto';
 // import { SalvarUsuarioDto } from 'src/dto/salvar-usuario.dto';
 
 
@@ -10,14 +10,14 @@ export class UserController {
 
     @Post("sign-in")
     @HttpCode(200)
-    async signIn(@Body() userDataLogin: User) {
-      return await this.userService.signinUser(userDataLogin);
+    async signIn(@Body() userDataSignin: SignInUserDto) {
+      return await this.userService.signinUser(userDataSignin);
     }
 
     @Post("sign-up")
     @HttpCode(201)
-    async signUp(){
-      
+    async signUp(@Body() userDataSignup: SignUpUserDto){
+      return await this.userService.signUpUser(userDataSignup)
     }
 }
 
