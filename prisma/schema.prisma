@@ -1,0 +1,46 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model ShoppingCart{
+  id Int @id @default(autoincrement())
+  userId Int 
+  courseId Int
+  isOrderCompleted Boolean
+
+  user User @relation(fields: [userId], references: [id]) 
+  course Course @relation(fields: [courseId], references: [id])
+
+  @@map("shoppingCart")
+}
+
+
+model User{
+  id Int @id @default(autoincrement())
+  name String
+  password String
+
+  shoppingCart ShoppingCart[]
+
+  @@map("user")
+}
+
+model Course{
+   id Int @id @default(autoincrement())
+   name String @db.VarChar(200)
+   url String 
+   price Float
+   descountedPrice Float
+   workload Float
+   content String
+
+   shoppingCart ShoppingCart[]
+
+  @@map("course")
+}

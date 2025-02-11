@@ -3,10 +3,11 @@ import { Pool } from 'pg';
 import * as dotenv from "dotenv";
 
 dotenv.config()
-const {LINK_DATABASE} = process.env
 
-if(!LINK_DATABASE){
-  throw new Error(`o link do banco está incorreto: ${LINK_DATABASE}`) 
+const { LINK_DATABASE } = process.env
+
+if (!LINK_DATABASE) {
+  throw new Error(`o link do banco está incorreto: ${LINK_DATABASE}`)
 }
 
 @Global()
@@ -22,4 +23,5 @@ if(!LINK_DATABASE){
   ],
   exports: ['PG_CONNECTION'],
 })
-export class DatabaseModule {}
+export class DatabaseModule { }
+DatabaseModule

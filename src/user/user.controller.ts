@@ -1,13 +1,13 @@
-import { Controller, Post, Body, HttpCode, HttpStatus } from '@nestjs/common';
+import { Controller, Post, Body, HttpCode, HttpStatus, Get } from '@nestjs/common';
 import { UserService } from './user.service';
 import { SalvarUsuarioDto } from 'src/dto/salvar-usuario.dto';
 
 
-@Controller()
+@Controller("login")
 export class UserController {
     constructor(private readonly userService: UserService) { }
 
-    @Post("login")
+    @Post()
     @HttpCode(HttpStatus.ACCEPTED)
     async loginUser(@Body() dadosRecebidos: SalvarUsuarioDto) {
         try {
@@ -16,6 +16,11 @@ export class UserController {
             
             throw new Error('Erro ao criar usuário: ' + error.message);
         }
+    }
+
+    @Get()
+    async testandoBoy(){
+      return "tá ligado, ne?"
     }
 }
 
