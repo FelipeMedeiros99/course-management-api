@@ -1,4 +1,4 @@
-import { HttpException, Injectable } from '@nestjs/common';
+import { HttpException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { User } from '@prisma/client';
 import * as bcrypt from "bcrypt";
@@ -18,7 +18,7 @@ export class UserService {
   async findUser(email: string) {
     const userData = await this.prisma.user.findFirst({
       where: {
-        email
+        email: email.toLocaleLowerCase()
       }
     });
 
@@ -32,7 +32,6 @@ export class UserService {
   }
 
   async encryptPassword(password: string) {
-    // const BC_PASSWORD = process.env.BC_PASSWORD;
     const SALTS = Number(process.env.SALTS_ROUNDS)||10;
     const encryptedPassword = await bcrypt.hash(password, SALTS);
     return encryptedPassword;
@@ -41,6 +40,11 @@ export class UserService {
   async validEncryptedPassword(password: string, encryptedPassword: string){
     const isCorrectPassword = await bcrypt.compare(password, encryptedPassword);
     return isCorrectPassword;
+  }
+
+  async generateToken(userData: Omit <User, "password">){
+    const token = this.jwtService.signAsync(userData)
+    return token
   }
 
   async signUpUser(userData: SignUpUserDto) {
@@ -53,18 +57,12 @@ export class UserService {
     const encryptedPassword = await this.encryptPassword(password)
 
     await this.saveUser({
-      email,
-      name,
+      email: email.toLocaleLowerCase(),
+      name: name.toLocaleUpperCase(),
       password: encryptedPassword
     })
   }
 
-  async generateToken(userData: Omit <User, "password">){
-    const token = this.jwtService.signAsync(userData)
-    return token
-  }
-
-  //TODO
   async signinUser(userData: SignInUserDto) {
     const {email, password} = userData
     
@@ -78,37 +76,4 @@ export class UserService {
     return token
   }
 
-
-
-  // async loginUser(dados: User): Promise<any> {
-  //   const client = await this.db.connect();
-  //   const verificarSeUsuarioExiste = `
-  //       SELECT * 
-  //       FROM usuario 
-  //       WHERE nome=$1`
-
-  //   const inserirUsuarioNoBanco = `
-  //       INSERT INTO usuario (nome) 
-  //       VALUES ($1) 
-  //       RETURNING *`    
-
-  //   try {
-
-  //     const usuarioExiste= await client.query(verificarSeUsuarioExiste, [dados.nome])
-
-  //     if(!usuarioExiste.rows.length){
-  //       // salvando usuario
-  //       const resposta = await client.query(inserirUsuarioNoBanco, [dados.nome])
-  //       return resposta.rows[0]
-  //     }
-  //     return usuarioExiste.rows[0]
-
-
-  //   } catch (error) {
-  //       throw new Error('Erro ao criar usuário: ' + error);
-
-  //   } finally {
-  //     client.release();
-  //   }
-  // }
 }
