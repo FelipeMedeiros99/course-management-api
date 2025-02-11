@@ -1,6 +1,8 @@
 import { HttpException, Injectable } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import { User } from '@prisma/client';
 import * as bcrypt from "bcrypt";
+import * as jwt from "jsonwebtoken"
 
 import { PrismaService } from 'src/config/prisma.service';
 import { SignInUserDto, SignUpUserDto } from 'src/dto/user.dto';
@@ -8,7 +10,10 @@ import { SignInUserDto, SignUpUserDto } from 'src/dto/user.dto';
 
 @Injectable()
 export class UserService {
-  constructor(private prisma: PrismaService) { }
+  constructor(
+    private prisma: PrismaService,
+    private jwtService: JwtService
+  ) { }
 
   async findUser(email: string) {
     const userData = await this.prisma.user.findFirst({
@@ -28,9 +33,14 @@ export class UserService {
 
   async encryptPassword(password: string) {
     // const BC_PASSWORD = process.env.BC_PASSWORD;
-    const SALTS = Number(process.env.SALTS_ROUNDS!);
+    const SALTS = Number(process.env.SALTS_ROUNDS)||10;
     const encryptedPassword = await bcrypt.hash(password, SALTS);
     return encryptedPassword;
+  }
+
+  async validEncryptedPassword(password: string, encryptedPassword: string){
+    const isCorrectPassword = await bcrypt.compare(password, encryptedPassword);
+    return isCorrectPassword;
   }
 
   async signUpUser(userData: SignUpUserDto) {
@@ -49,15 +59,23 @@ export class UserService {
     })
   }
 
+  async generateToken(userData: Omit <User, "password">){
+    const token = this.jwtService.signAsync(userData)
+    return token
+  }
+
   //TODO
   async signinUser(userData: SignInUserDto) {
-    const doUserExists = await this.findUser(userData.email)
+    const {email, password} = userData
+    
+    const userDatabase = await this.findUser(userData.email)
+    if (!userDatabase) throw new HttpException("Email não cadastrado", 401)
 
-    if (!doUserExists) {
-      throw new HttpException("Usuário não cadastrado", 401)
-    }
-
-    return
+    const isCorrectPassword = await this.validEncryptedPassword(password, userDatabase.password)
+    if(!isCorrectPassword) throw new HttpException("Senha incorreta", 401)
+    
+    const token = await this.generateToken({id: userDatabase.id, email, name: userDatabase.email})
+    return token
   }
 
 
