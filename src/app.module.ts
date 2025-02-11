@@ -1,10 +1,7 @@
 import { ConfigModule } from '@nestjs/config';
 import { Module } from '@nestjs/common';
 
-import { AppService } from './app.service';
-import { AppController } from './app.controller';
-import { PrismaService } from './config/prisma.service';
-import { UserModule } from './user/user.module';
+import { UserModule } from './auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
 
 
@@ -25,7 +22,7 @@ import { JwtModule } from '@nestjs/jwt';
   
   ],
     
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule { }

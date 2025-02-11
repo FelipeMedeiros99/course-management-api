@@ -1,5 +1,5 @@
 import { Controller, Get, HttpCode, Post, Body, Put } from "@nestjs/common";
-import { CursoService } from "./curso.service";
+import { CursoService } from "./course.service";
 import { CursoDto } from "src/dto/curso.dto";
 import { AlterarCursoDto } from "src/dto/alterar-curso.dto";
 
