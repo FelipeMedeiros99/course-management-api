@@ -1,26 +1,23 @@
 import { Controller, Post, Body, HttpCode, HttpStatus, Get } from '@nestjs/common';
 import { UserService } from './user.service';
-import { SalvarUsuarioDto } from 'src/dto/salvar-usuario.dto';
+import { User } from '@prisma/client';
+// import { SalvarUsuarioDto } from 'src/dto/salvar-usuario.dto';
 
 
-@Controller("login")
+@Controller()
 export class UserController {
     constructor(private readonly userService: UserService) { }
 
-    @Post()
-    @HttpCode(HttpStatus.ACCEPTED)
-    async loginUser(@Body() dadosRecebidos: SalvarUsuarioDto) {
-        try {
-            return await this.userService.loginUser(dadosRecebidos);
-        }catch (error) {
-            
-            throw new Error('Erro ao criar usuário: ' + error.message);
-        }
+    @Post("sign-in")
+    @HttpCode(200)
+    async signIn(@Body() userDataLogin: User) {
+      return await this.userService.signinUser(userDataLogin);
     }
 
-    @Get()
-    async testandoBoy(){
-      return "tá ligado, ne?"
+    @Post("sign-up")
+    @HttpCode(201)
+    async signUp(){
+      
     }
 }
 

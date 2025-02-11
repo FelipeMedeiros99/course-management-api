@@ -1,41 +1,53 @@
-import { Injectable, Inject } from '@nestjs/common';
-import { Pool } from 'pg';
-import { SalvarUsuarioDto } from 'src/dto/salvar-usuario.dto';
+import { HttpException, Injectable } from '@nestjs/common';
+import { User } from '@prisma/client';
+
+import { PrismaService } from 'src/config/prisma.service';
 
 
 @Injectable()
 export class UserService {
-  constructor(@Inject('PG_CONNECTION') private readonly db: Pool) {}
+  constructor(private prisma: PrismaService) {}
 
-  async loginUser(dados: SalvarUsuarioDto): Promise<any> {
-    const client = await this.db.connect();
-    const verificarSeUsuarioExiste = `
-        SELECT * 
-        FROM usuario 
-        WHERE nome=$1`
-
-    const inserirUsuarioNoBanco = `
-        INSERT INTO usuario (nome) 
-        VALUES ($1) 
-        RETURNING *`    
-
-    try {
-
-      const usuarioExiste= await client.query(verificarSeUsuarioExiste, [dados.nome])
-      
-      if(!usuarioExiste.rows.length){
-        // salvando usuario
-        const resposta = await client.query(inserirUsuarioNoBanco, [dados.nome])
-        return resposta.rows[0]
+  async signinUser(userData: Omit <User, "id">){
+    const doUserExists = await this.prisma.user.findFirst({
+      where: {
+        name: userData.name
       }
-      return usuarioExiste.rows[0]
-      
-
-    } catch (error) {
-        throw new Error('Erro ao criar usuário: ' + error);
-
-    } finally {
-      client.release();
+    })
+    
+    if(!doUserExists){
+      throw new HttpException("Usuário não cadastrado", 401)
     }
   }
+  // async loginUser(dados: User): Promise<any> {
+  //   const client = await this.db.connect();
+  //   const verificarSeUsuarioExiste = `
+  //       SELECT * 
+  //       FROM usuario 
+  //       WHERE nome=$1`
+
+  //   const inserirUsuarioNoBanco = `
+  //       INSERT INTO usuario (nome) 
+  //       VALUES ($1) 
+  //       RETURNING *`    
+
+  //   try {
+
+  //     const usuarioExiste= await client.query(verificarSeUsuarioExiste, [dados.nome])
+      
+  //     if(!usuarioExiste.rows.length){
+  //       // salvando usuario
+  //       const resposta = await client.query(inserirUsuarioNoBanco, [dados.nome])
+  //       return resposta.rows[0]
+  //     }
+  //     return usuarioExiste.rows[0]
+      
+
+  //   } catch (error) {
+  //       throw new Error('Erro ao criar usuário: ' + error);
+
+  //   } finally {
+  //     client.release();
+  //   }
+  // }
 }

@@ -24,11 +24,23 @@ model ShoppingCart{
 model User{
   id Int @id @default(autoincrement())
   name String
+  email String
   password String
 
   shoppingCart ShoppingCart[]
+  token Token[]
 
   @@map("user")
+}
+
+model Token{
+  id Int @id @default(autoincrement())
+  token String
+  userId Int 
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+
 }
 
 model Course{
