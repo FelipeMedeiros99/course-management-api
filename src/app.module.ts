@@ -3,11 +3,14 @@ import { Module } from '@nestjs/common';
 
 import { AuthModule } from './auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
+import { AuthMiddleware } from './auth/auth.middleware';
+import { CourseModule } from './courses/course.module';
 
 
 @Module({
   imports: [
     AuthModule,
+    CourseModule,
     ConfigModule.forRoot({
       envFilePath: ['.env'],
       isGlobal: true
@@ -19,9 +22,9 @@ import { JwtModule } from '@nestjs/jwt';
         expiresIn: "1min"
       }
     })
-  
+
   ],
-    
+
   controllers: [],
   providers: [],
 })
