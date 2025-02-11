@@ -1,13 +1,13 @@
 import { ConfigModule } from '@nestjs/config';
 import { Module } from '@nestjs/common';
 
-import { UserModule } from './auth/auth.module';
+import { AuthModule } from './auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
 
 
 @Module({
   imports: [
-    UserModule,
+    AuthModule,
     ConfigModule.forRoot({
       envFilePath: ['.env'],
       isGlobal: true

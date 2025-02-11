@@ -9,7 +9,7 @@ import { SignInUserDto, SignUpUserDto } from 'src/dto/auth.dto';
 
 
 @Injectable()
-export class UserService {
+export class AuthService {
   constructor(
     private prisma: PrismaService,
     private jwtService: JwtService
