@@ -5,7 +5,7 @@ import * as bcrypt from "bcrypt";
 import * as jwt from "jsonwebtoken"
 
 import { PrismaService } from 'src/config/prisma.service';
-import { SignInUserDto, SignUpUserDto } from 'src/dto/user.dto';
+import { SignInUserDto, SignUpUserDto } from 'src/dto/auth.dto';
 
 
 @Injectable()
