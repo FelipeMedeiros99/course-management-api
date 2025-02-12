@@ -16,9 +16,7 @@ export class ShoppingCartService {
         courseId: shoppingCartData.courseId
       }
     })
-
     return !!cart
-
   }
 
   async addToCart(shoppingCartData: ShoppingCartDataDto){
@@ -29,6 +27,8 @@ export class ShoppingCartService {
       })
     }
   }
+
+  
   
 
 }
