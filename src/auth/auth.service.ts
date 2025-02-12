@@ -1,8 +1,7 @@
-import { HttpException, Injectable, UnauthorizedException } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { User } from '@prisma/client';
 import * as bcrypt from "bcrypt";
-import * as jwt from "jsonwebtoken"
 
 import { PrismaService } from 'src/config/prisma.service';
 import { SignInUserDto, SignUpUserDto } from 'src/dto/auth.dto';
