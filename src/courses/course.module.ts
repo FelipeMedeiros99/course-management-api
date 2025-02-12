@@ -1,12 +1,12 @@
 import { MiddlewareConsumer, Module, NestModule } from "@nestjs/common";
 import { CourseController } from "./course.controller";
 import { PrismaService } from "src/config/prisma.service";
-import { AuthMiddleware } from "src/auth/auth.guard";
+import { CourseService } from "./course.service";
 
 @Module({
   imports: [],
   controllers: [CourseController],
-  providers: [PrismaService],
+  providers: [PrismaService, CourseService],
 })
 
 export class CourseModule { }

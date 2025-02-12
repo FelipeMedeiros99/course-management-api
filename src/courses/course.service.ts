@@ -1,4 +1,5 @@
 import { Inject, Injectable, Body } from "@nestjs/common";
+import { Course } from "@prisma/client";
 import { PrismaService } from "src/config/prisma.service";
 // import { Pool } from "pg";
 // import { CursoDto } from "src/dto/curso.dto";
@@ -8,6 +9,10 @@ import { PrismaService } from "src/config/prisma.service";
 export class CourseService {
   constructor(private prisma: PrismaService) { }
 
+  async getCourse(): Promise<Course[]>{
+    const courses = await this.prisma.course.findMany();
+    return courses;
+  }
 
 
   // constructor(@Inject("PG_CONNECTION") private readonly db:Pool){}

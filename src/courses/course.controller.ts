@@ -5,14 +5,15 @@ import { AlterarCursoDto } from "src/dto/alterar-curso.dto";
 import { AuthGuard } from "src/auth/auth.guard";
 
 @UseGuards(AuthGuard)
-@Controller("course")
+@Controller("courses")
 export class CourseController{
-    // constructor(private readonly courseService: CourseService){ }
+    constructor(private readonly courseService: CourseService){ }
 
-    @Get("test")
-    async test(){
-      return "this app is running"
+    @Get()
+    async getCourse(){
+      return this.courseService.getCourse()
     }
+
 
     // @Get("cursos")
     // @HttpCode(200)
