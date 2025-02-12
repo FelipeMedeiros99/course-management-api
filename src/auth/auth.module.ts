@@ -2,7 +2,7 @@ import { Module } from "@nestjs/common";
 import { UserController } from "./auth.controller";
 import { AuthService } from "./auth.service";
 import { PrismaService } from "src/config/prisma.service";
-import { AuthMiddleware } from "./auth.middleware";
+import { AuthMiddleware } from "./auth.guard";
 
 @Module({
   imports: [],

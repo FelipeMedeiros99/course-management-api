@@ -2,7 +2,9 @@ import { Controller, Get, HttpCode, Post, Body, Put, UseGuards } from "@nestjs/c
 import { CourseService } from "./course.service";
 import { CursoDto } from "src/dto/curso.dto";
 import { AlterarCursoDto } from "src/dto/alterar-curso.dto";
+import { AuthGuard } from "src/auth/auth.guard";
 
+@UseGuards(AuthGuard)
 @Controller("course")
 export class CourseController{
     // constructor(private readonly courseService: CourseService){ }

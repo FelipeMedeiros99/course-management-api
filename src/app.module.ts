@@ -1,9 +1,9 @@
 import { ConfigModule } from '@nestjs/config';
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
 
 import { AuthModule } from './auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
-import { AuthMiddleware } from './auth/auth.middleware';
+import { AuthGuard } from './auth/auth.guard';
 import { CourseModule } from './courses/course.module';
 
 
@@ -19,7 +19,7 @@ import { CourseModule } from './courses/course.module';
       global: true,
       secret: process.env.JWT_PASSWORD!,
       signOptions: {
-        expiresIn: "1min"
+        expiresIn: "20min"
       }
     })
 
@@ -28,4 +28,5 @@ import { CourseModule } from './courses/course.module';
   controllers: [],
   providers: [],
 })
+
 export class AppModule { }
