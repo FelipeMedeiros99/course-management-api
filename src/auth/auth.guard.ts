@@ -14,10 +14,13 @@ export class AuthGuard implements CanActivate{
     if(!token) throw new UnauthorizedException("Token inválido");
 
     try{
-      const payload = this.jwtService.signAsync(token, {
-        secret: process.env.JWT_PASSWORD
+      const payload = this.jwtService.verifyAsync(token, {
+        secret: process.env.JWT_PASSWORD!
       })
+
+      req["user"] = payload;
     }catch(e){
+      console.log(e)
       throw new UnauthorizedException("Token expirado")
     }
 
