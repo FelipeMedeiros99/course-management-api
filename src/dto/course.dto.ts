@@ -55,11 +55,11 @@ export class EditCourseDto {
     @IsNotEmpty({ message: 'O campo descountedPrice não pode estar vazio.' })
     descountedPrice: number;
 
-    @IsString({ message: 'A carga horária deve ser uma string.' })
-    @IsNotEmpty({ message: 'A campo carga horária não pode estar vazia.' })
-    workload: string;
+    @IsNumber({} ,{ message: 'O workload (carga horária) deve ser uma string.' })
+    @IsNotEmpty({ message: 'O campo workload (carga horária) não pode estar vazia.' })
+    workload: number;
 
-    @IsString({ message: 'O conteúdo deve ser uma string.' })
-    @IsNotEmpty({ message: 'O campo conteúdo não pode estar vazio.' })
+    @IsString({ message: 'O content deve ser uma string.' })
+    @IsNotEmpty({ message: 'O campo content não pode estar vazio.' })
     content: string;
 }
