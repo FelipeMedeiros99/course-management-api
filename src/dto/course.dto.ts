@@ -1,4 +1,4 @@
-import { IsString, IsNumber, IsUrl, MinLength, MaxLength, IsNotEmpty } from 'class-validator';
+import { IsString, IsNumber, IsUrl, MinLength, MaxLength, IsNotEmpty, IsInt } from 'class-validator';
 
 export class CourseDataDto {
     @IsString({ message: 'O campo name deve ser uma string.' })
@@ -26,5 +26,40 @@ export class CourseDataDto {
 
     @IsString({ message: 'O content deve ser uma string.' })
     @IsNotEmpty({ message: 'O campo content é obrigatório.' })
+    content: string;
+}
+
+
+
+export class EditCourseDto {
+    @IsInt({message: "O id deve ser um inteiro"})
+    @IsNotEmpty({message: "O campo id é obrigatório"})
+    id: number;
+    
+    @IsString({ message: 'O name deve ser uma string.' })
+    @IsNotEmpty({ message: 'O campo name não pode estar vazio.' })
+    @MinLength(2, { message: 'O name deve ter pelo menos 2 caracteres.' })
+    @MaxLength(200, { message: 'O name não pode ter mais de 200 caracteres.' })
+    name: string;
+
+    @IsNotEmpty({ message: 'A campo url da foto não pode estar vazia.' })
+    @IsString({ message: 'A url da foto deve ser uma string.' })
+    @IsUrl({}, { message: 'A url da foto deve ser válida.' })
+    url: string;
+
+    @IsNumber({}, { message: 'O price deve ser um número.' })
+    @IsNotEmpty({ message: 'O campo price não pode estar vazio.' })
+    price: number;
+
+    @IsNumber({}, { message: 'O descountedPrice deve ser um número.' })
+    @IsNotEmpty({ message: 'O campo descountedPrice não pode estar vazio.' })
+    descountedPrice: number;
+
+    @IsString({ message: 'A carga horária deve ser uma string.' })
+    @IsNotEmpty({ message: 'A campo carga horária não pode estar vazia.' })
+    workload: string;
+
+    @IsString({ message: 'O conteúdo deve ser uma string.' })
+    @IsNotEmpty({ message: 'O campo conteúdo não pode estar vazio.' })
     content: string;
 }
