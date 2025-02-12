@@ -1,7 +1,6 @@
 import { Controller, Get, HttpCode, Post, Body, Put, UseGuards } from "@nestjs/common";
 import { CourseService } from "./course.service";
 import { CourseDataDto, EditCourseDto } from "src/dto/course.dto";
-import { AlterarCursoDto } from "src/dto/alterar-curso.dto";
 import { AuthGuard } from "src/auth/auth.guard";
 
 @UseGuards(AuthGuard)
