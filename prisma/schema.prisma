@@ -10,9 +10,9 @@ datasource db {
 
 model ShoppingCart{
   id Int @id @default(autoincrement())
+  isOrderCompleted Boolean @default(false)
   userId Int 
   courseId Int
-  isOrderCompleted Boolean
 
   user User @relation(fields: [userId], references: [id]) 
   course Course @relation(fields: [courseId], references: [id])

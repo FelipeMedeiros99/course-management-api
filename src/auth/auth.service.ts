@@ -50,8 +50,8 @@ export class AuthService {
     const { email, name, password, confirmPassword } = userData;
     const userAlredyExist = await this.findUser(email);
 
-    if (userAlredyExist) throw new HttpException("Esse email já está cadastrado", 409)
-    if (password !== confirmPassword) throw new HttpException("Senhas não coincidem", 400)
+    if (userAlredyExist) throw new HttpException("Email already existe", 409)
+    if (password !== confirmPassword) throw new HttpException("Passwords don't match", 400)
     
     const encryptedPassword = await this.encryptPassword(password)
 
@@ -66,10 +66,10 @@ export class AuthService {
     const {email, password} = userData
     
     const userDatabase = await this.findUser(userData.email)
-    if (!userDatabase) throw new HttpException("Email não cadastrado", 401)
+    if (!userDatabase) throw new HttpException("Email not registered", 401)
 
     const isCorrectPassword = await this.validEncryptedPassword(password, userDatabase.password)
-    if(!isCorrectPassword) throw new HttpException("Senha incorreta", 401)
+    if(!isCorrectPassword) throw new HttpException("Incorrect password", 401)
     
     const token = await this.generateToken({id: userDatabase.id, email, name: userDatabase.email})
     return token

@@ -5,12 +5,14 @@ import { AuthModule } from './auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
 import { AuthGuard } from './auth/auth.guard';
 import { CourseModule } from './courses/course.module';
+import { ShoppingCartModule } from './shoppingCart/shoppingCart.module.';
 
 
 @Module({
   imports: [
     AuthModule,
     CourseModule,
+    ShoppingCartModule,
     ConfigModule.forRoot({
       envFilePath: ['.env'],
       isGlobal: true
@@ -24,9 +26,6 @@ import { CourseModule } from './courses/course.module';
     })
 
   ],
-
-  controllers: [],
-  providers: [],
 })
 
 export class AppModule { }
