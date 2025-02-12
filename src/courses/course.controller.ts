@@ -1,6 +1,6 @@
 import { Controller, Get, HttpCode, Post, Body, Put, UseGuards } from "@nestjs/common";
 import { CourseService } from "./course.service";
-import { CursoDto } from "src/dto/curso.dto";
+import { CourseDataDto } from "src/dto/course.dto";
 import { AlterarCursoDto } from "src/dto/alterar-curso.dto";
 import { AuthGuard } from "src/auth/auth.guard";
 
@@ -12,6 +12,12 @@ export class CourseController{
     @Get()
     async getCourse(){
       return this.courseService.getCourse()
+    }
+
+    @HttpCode(201)
+    @Post()
+    async addCourse(@Body() courseData: CourseDataDto){
+      await this.courseService.addCourse(courseData)
     }
 
 
