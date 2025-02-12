@@ -27,37 +27,4 @@ export class CourseController{
       await this.courseService.editCourse(courseData)
       return "Altered"
     }
-
-
-    // @Get("cursos")
-    // @HttpCode(200)
-    // async enviarCursos(){
-    //     try{
-    //         return await this.cursoService.enviarCursos()
-    //     }catch(error){
-    //         throw new Error ("Erro ao buscar cursos: " + error.message)
-    //     }
-    // }
-
-    // @Post("cursos")
-    // @HttpCode(201)
-    // async salvarCurso(@Body() dadosCurso: CursoDto){
-    //     try{
-    //         return await this.cursoService.salvarCurso(dadosCurso)
-    //     }catch(error){
-    //         throw new Error("Erro ao salvar curso: " + error.message)
-    //     }
-    // }
-
-    // @Put("cursos")
-    // @HttpCode(202)
-    // async alterarCurso(@Body() dadosCurso: AlterarCursoDto){
-    //     try{
-    //         return await this.cursoService.alterarCurso(dadosCurso)
-    //     }catch(error){
-    //         throw new Error("Erro ao alterar curso: " + error.message)
-    //     }
-    // }
-
-
 }
