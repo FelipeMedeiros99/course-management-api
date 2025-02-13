@@ -27,10 +27,6 @@ export class ShoppingCartService {
       })
     }
   }
-
-  
-  
-
 }
 
 //   async adicionarAoCarrinho(dadosCarrinho: CarrinhoDto) {

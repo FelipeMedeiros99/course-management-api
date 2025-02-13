@@ -15,7 +15,7 @@ export class AuthService {
     private jwtService: JwtService
   ) { }
 
-  async findUser(email: string) {
+  async findUser(email: string): Promise<User> {
     const userData = await this.prisma.user.findFirst({
       where: {
         email: email.toLocaleLowerCase()
@@ -25,34 +25,34 @@ export class AuthService {
     return userData;
   };
 
-  async saveUser(userData: Omit<User, "id">) {
+  async saveUser(userData: Omit<User, "id">): Promise<void> {
     await this.prisma.user.create({
       data: userData
     })
   }
 
-  async encryptPassword(password: string) {
+  async encryptPassword(password: string): Promise<string> {
     const SALTS = Number(process.env.SALTS_ROUNDS) || 10;
     const encryptedPassword = await bcrypt.hash(password, SALTS);
     return encryptedPassword;
   }
 
-  async validEncryptedPassword(password: string, encryptedPassword: string) {
+  async validEncryptedPassword(password: string, encryptedPassword: string): Promise<Boolean> {
     const isCorrectPassword = await bcrypt.compare(password, encryptedPassword);
     return isCorrectPassword;
   }
 
-  async generateToken(userData: Omit<User, "password">) {
+  async generateToken(userData: Omit<User, "password">): Promise<string> {
     const token = this.jwtService.signAsync(userData)
     return token
   }
 
-  async signUpUser(userData: SignUpUserDto) {
+  async signUpUser(userData: SignUpUserDto): Promise<void> {
     try {
       const { email, name, password, confirmPassword } = userData;
-      const userAlredyExist = await this.findUser(email);
+      const userAlreadyExist = await this.findUser(email);
 
-      if (userAlredyExist) throw new HttpException("Email already existe", 409);
+      if (userAlreadyExist) throw new HttpException("Email already exists", 409);
       if (password !== confirmPassword) throw new HttpException("Passwords don't match", 400);
 
       const encryptedPassword = await this.encryptPassword(password);
@@ -62,15 +62,15 @@ export class AuthService {
         name: name.toLocaleUpperCase(),
         password: encryptedPassword
       });
-    } catch (e) {
+    } catch (e: any) {
       if (e instanceof HttpException) throw e;
 
-      this.logger.error(e)
-      throw new HttpException("error when registering", 500)
+      this.logger.error("signup Error: ", e)
+      throw new HttpException("An error occurred while registering the user", 500)
     }
   }
 
-  async signinUser(userData: SignInUserDto) {
+  async signinUser(userData: SignInUserDto): Promise<string> {
     try {
       const { email, password } = userData;
 
@@ -83,12 +83,10 @@ export class AuthService {
       const token = await this.generateToken({ id: userDatabase.id, email, name: userDatabase.email });
       return token;
 
-    } catch (e) {
+    } catch (e: any) {
       if (e instanceof HttpException) throw e;
-      this.logger.error(e);
-      throw new HttpException("error logging in", 500);
-
+      this.logger.error("Login error: ", e);
+      throw new HttpException("An error occurred while logging in", 500);
     }
   }
-
 }
