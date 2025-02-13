@@ -3,6 +3,14 @@ import { Injectable, Inject, Logger, HttpException, HttpStatus } from "@nestjs/c
 import { IdCarrinhoDto } from "src/dto/remover-do-carrinho.dto";
 import { PrismaService } from "src/config/prisma.service";
 import { ShoppingCartDataDto } from "src/dto/shoppingCart.dto";
+import { Course, ShoppingCart } from "@prisma/client";
+
+
+export interface UserCartInterface {
+  id: number,
+  isOrderCompleted: boolean,
+  course: Course
+}
 
 @Injectable()
 export class ShoppingCartService {
@@ -10,7 +18,7 @@ export class ShoppingCartService {
   private readonly logger = new Logger(ShoppingCartService.name);
   constructor(private prisma: PrismaService) { };
 
-  async isProductInTheCart(shoppingCartData: ShoppingCartDataDto): Promise<Boolean>{
+  async isProductInTheCart(shoppingCartData: ShoppingCartDataDto): Promise<Boolean> {
     const cart = await this.prisma.shoppingCart.findFirst({
       where: {
         userId: shoppingCartData.userId,
@@ -20,7 +28,7 @@ export class ShoppingCartService {
     return !!cart
   }
 
-  async isUserIdValid(userId: number): Promise<Boolean>{
+  async isUserIdValid(userId: number): Promise<Boolean> {
     const user = await this.prisma.user.findFirst({
       where: {
         id: userId
@@ -29,7 +37,7 @@ export class ShoppingCartService {
     return !!user
   }
 
-  async isCourseIdValid(courseId: number): Promise<Boolean>{
+  async isCourseIdValid(courseId: number): Promise<Boolean> {
     const course = await this.prisma.course.findFirst({
       where: {
         id: courseId
@@ -38,26 +46,47 @@ export class ShoppingCartService {
     return !!course
   }
 
-  async addToCart(shoppingCartData: ShoppingCartDataDto): Promise<void>{
-    try{
+  async addToCart(shoppingCartData: ShoppingCartDataDto): Promise<void> {
+    try {
       const [isProductInTheCart, isUserIdValid, isCourseIdValid] = await Promise.all([
         this.isProductInTheCart(shoppingCartData),
         this.isUserIdValid(shoppingCartData.userId),
         this.isCourseIdValid(shoppingCartData.courseId)
       ]);
 
-      if(!isUserIdValid) throw new HttpException("Invalid userId", HttpStatus.BAD_REQUEST);
-      if(!isCourseIdValid) throw new HttpException("Invalid courseId", HttpStatus.BAD_REQUEST);
+      if (!isUserIdValid) throw new HttpException("Invalid userId", HttpStatus.BAD_REQUEST);
+      if (!isCourseIdValid) throw new HttpException("Invalid courseId", HttpStatus.BAD_REQUEST);
+      if (isProductInTheCart) throw new HttpException("Course already in the cart", HttpStatus.CONFLICT)
 
-      if(!isProductInTheCart){
-        await this.prisma.shoppingCart.create({
-          data: shoppingCartData
-        })
-      }
-    }catch(e){
-      if(e instanceof HttpException) throw e;
+      await this.prisma.shoppingCart.create({
+        data: shoppingCartData
+      })
+
+    } catch (e) {
+      if (e instanceof HttpException) throw e;
       this.logger.error("Add to cart error: ", e)
       throw new HttpException("An error occurred while add course at cart", 500)
+    }
+  }
+
+  async findUserCart(userId: number): Promise<UserCartInterface[]> {
+    try {
+      const userCart = await this.prisma.shoppingCart.findMany({
+        where: {
+          userId
+        },
+        select: {
+          id: true,
+          isOrderCompleted: true,
+          course: true
+        },
+      })
+      return userCart
+
+    } catch (e) {
+      if (e instanceof HttpException) throw e;
+      this.logger.error("Error at find user cart: ", e)
+      throw new HttpException("An error occurred while retrieving the user's cart", 500)
     }
   }
 }

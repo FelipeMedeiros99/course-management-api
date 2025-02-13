@@ -31,7 +31,6 @@ export class CourseService {
 
   async editCourse(courseData: EditCourseDto): Promise<void>{
     try{
-
       const {id, ...data} = courseData;
       await this.prisma.course.update({
         where: {

@@ -1,5 +1,5 @@
 import { Body, Get, Controller, Delete, HttpCode, Post, Param, Query, Put, UseGuards, HttpException } from "@nestjs/common";
-import { ShoppingCartService } from "./shoppingCart.service";
+import { ShoppingCartService, UserCartInterface } from "./shoppingCart.service";
 import { ShoppingCartDataDto } from "src/dto/shoppingCart.dto";
 import { IdCarrinhoDto } from "src/dto/remover-do-carrinho.dto";
 import { AuthGuard } from "src/auth/auth.guard";
@@ -14,13 +14,16 @@ export class shoppingCartController {
   @HttpCode(202)
   @Post()
   async addToCart(@Body() shoppingCartDataDto: ShoppingCartDataDto) {
-    try{
-      await this.shoppingCartService.addToCart(shoppingCartDataDto)
-    }catch(e){
-      throw new HttpException("Error when trying to add course to cart", 500)
-    }
+    await this.shoppingCartService.addToCart(shoppingCartDataDto)
+    return "Added at cart"
   }
 
+  @HttpCode(200)
+  @Get("/:userId")
+  async findUserCart(@Param("userId") userId: number): Promise<UserCartInterface[]>{
+    console.log(userId)
+    return this.shoppingCartService.findUserCart(userId)
+  }
 
   // @Post("carrinho")
   // @HttpCode(202)
