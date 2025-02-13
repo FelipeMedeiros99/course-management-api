@@ -36,7 +36,7 @@ export class shoppingCartController {
   @HttpCode(HttpStatus.ACCEPTED)
   @Put()
   async finalizePurchase(@Body() userCart: UserCartDto){
-    await this.finalizePurchase(userCart);
+    await this.shoppingCartService.finalizePurchase(userCart);
     return "Purchase completed"
   }
 
