@@ -1,4 +1,4 @@
-import { Injectable, Inject, Logger, HttpException } from "@nestjs/common";
+import { Injectable, Inject, Logger, HttpException, HttpStatus } from "@nestjs/common";
 
 import { IdCarrinhoDto } from "src/dto/remover-do-carrinho.dto";
 import { PrismaService } from "src/config/prisma.service";
@@ -20,9 +20,35 @@ export class ShoppingCartService {
     return !!cart
   }
 
+  async isUserIdValid(userId: number): Promise<Boolean>{
+    const user = await this.prisma.user.findFirst({
+      where: {
+        id: userId
+      }
+    })
+    return !!user
+  }
+
+  async isCourseIdValid(courseId: number): Promise<Boolean>{
+    const course = await this.prisma.course.findFirst({
+      where: {
+        id: courseId
+      }
+    })
+    return !!course
+  }
+
   async addToCart(shoppingCartData: ShoppingCartDataDto): Promise<void>{
     try{
-      const isProductInTheCart = await this.isProductInTheCart(shoppingCartData)
+      const [isProductInTheCart, isUserIdValid, isCourseIdValid] = await Promise.all([
+        this.isProductInTheCart(shoppingCartData),
+        this.isUserIdValid(shoppingCartData.userId),
+        this.isCourseIdValid(shoppingCartData.courseId)
+      ]);
+
+      if(!isUserIdValid) throw new HttpException("Invalid userId", HttpStatus.BAD_REQUEST);
+      if(!isCourseIdValid) throw new HttpException("Invalid courseId", HttpStatus.BAD_REQUEST);
+
       if(!isProductInTheCart){
         await this.prisma.shoppingCart.create({
           data: shoppingCartData
