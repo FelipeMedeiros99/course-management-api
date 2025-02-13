@@ -11,7 +11,7 @@ export class ShoppingCartDataDto {
 }
 
 
-export class DeleteUserCartDto{
+export class UserCartDto{
   @IsInt()
   @IsNotEmpty()
   userId: number;

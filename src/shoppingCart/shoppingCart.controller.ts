@@ -1,6 +1,6 @@
 import { Body, Get, Controller, Delete, HttpCode, Post, Param, Query, Put, UseGuards, HttpException, HttpStatus } from "@nestjs/common";
 import { ShoppingCartService, UserCartInterface } from "./shoppingCart.service";
-import { DeleteUserCartDto, ShoppingCartDataDto } from "src/dto/shoppingCart.dto";
+import { UserCartDto, ShoppingCartDataDto } from "src/dto/shoppingCart.dto";
 import { IdCarrinhoDto } from "src/dto/remover-do-carrinho.dto";
 import { AuthGuard } from "src/auth/auth.guard";
 
@@ -28,9 +28,16 @@ export class shoppingCartController {
 
   @HttpCode(HttpStatus.OK)
   @Delete()
-  async removeCart(@Body() deleteCarData: DeleteUserCartDto ){
+  async removeCart(@Body() deleteCarData: UserCartDto ){
     await this.shoppingCartService.deleteCart(deleteCarData);
     return "Removed"
+  }
+
+  @HttpCode(HttpStatus.ACCEPTED)
+  @Put()
+  async finalizePurchase(@Body() userCart: UserCartDto){
+    await this.finalizePurchase(userCart);
+    return "Purchase completed"
   }
 
   // @Post("carrinho")
