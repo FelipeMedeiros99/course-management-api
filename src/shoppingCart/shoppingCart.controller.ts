@@ -1,7 +1,6 @@
 import { Body, Get, Controller, Delete, HttpCode, Post, Param, Query, Put, UseGuards, HttpException, HttpStatus } from "@nestjs/common";
 import { ShoppingCartService, UserCartInterface } from "./shoppingCart.service";
 import { UserCartDto, ShoppingCartDataDto } from "src/dto/shoppingCart.dto";
-import { IdCarrinhoDto } from "src/dto/remover-do-carrinho.dto";
 import { AuthGuard } from "src/auth/auth.guard";
 
 @UseGuards(AuthGuard)
@@ -21,7 +20,6 @@ export class shoppingCartController {
   @HttpCode(200)
   @Get("/:userId")
   async findUserCart(@Param("userId") userId: number): Promise<UserCartInterface[]>{
-    console.log(userId)
     return this.shoppingCartService.findUserCart(userId)
   }
 

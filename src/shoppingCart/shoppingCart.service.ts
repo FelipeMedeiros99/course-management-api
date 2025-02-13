@@ -1,9 +1,8 @@
-import { Injectable, Inject, Logger, HttpException, HttpStatus } from "@nestjs/common";
+import { Injectable, Logger, HttpException, HttpStatus, HttpCode } from "@nestjs/common";
 
-import { IdCarrinhoDto } from "src/dto/remover-do-carrinho.dto";
 import { PrismaService } from "src/config/prisma.service";
 import { UserCartDto, ShoppingCartDataDto } from "src/dto/shoppingCart.dto";
-import { Course, ShoppingCart } from "@prisma/client";
+import { Course } from "@prisma/client";
 
 
 export interface UserCartInterface {
@@ -80,6 +79,7 @@ export class ShoppingCartService {
   }
 
   async findUserCart(userId: number): Promise<UserCartInterface[]> {
+    if(isNaN(userId)) throw new HttpException("invalid userId param", HttpStatus.BAD_REQUEST)
     try {
       const userCart = await this.prisma.shoppingCart.findMany({
         where: {
