@@ -1,4 +1,4 @@
-import { Injectable, Inject } from "@nestjs/common";
+import { Injectable, Inject, Logger, HttpException } from "@nestjs/common";
 
 import { IdCarrinhoDto } from "src/dto/remover-do-carrinho.dto";
 import { PrismaService } from "src/config/prisma.service";
@@ -7,7 +7,8 @@ import { ShoppingCartDataDto } from "src/dto/shoppingCart.dto";
 @Injectable()
 export class ShoppingCartService {
 
-  constructor(private prisma: PrismaService) { }
+  private readonly logger = new Logger(ShoppingCartService.name);
+  constructor(private prisma: PrismaService) { };
 
   async isProductInTheCart(shoppingCartData: ShoppingCartDataDto): Promise<Boolean>{
     const cart = await this.prisma.shoppingCart.findFirst({
@@ -19,12 +20,18 @@ export class ShoppingCartService {
     return !!cart
   }
 
-  async addToCart(shoppingCartData: ShoppingCartDataDto){
-    const isProductInTheCart = await this.isProductInTheCart(shoppingCartData)
-    if(!isProductInTheCart){
-      await this.prisma.shoppingCart.create({
-        data: shoppingCartData
-      })
+  async addToCart(shoppingCartData: ShoppingCartDataDto): Promise<void>{
+    try{
+      const isProductInTheCart = await this.isProductInTheCart(shoppingCartData)
+      if(!isProductInTheCart){
+        await this.prisma.shoppingCart.create({
+          data: shoppingCartData
+        })
+      }
+    }catch(e){
+      if(e instanceof HttpException) throw e;
+      this.logger.error("Add to cart error: ", e)
+      throw new HttpException("An error occurred while add course at cart", 500)
     }
   }
 }
