@@ -9,3 +9,14 @@ export class ShoppingCartDataDto {
     @IsNotEmpty()
     courseId: number;
 }
+
+
+export class DeleteUserCartDto{
+  @IsInt()
+  @IsNotEmpty()
+  userId: number;
+  
+  @IsInt()
+  @IsNotEmpty()
+  cartId: number
+}

@@ -2,7 +2,7 @@ import { Injectable, Inject, Logger, HttpException, HttpStatus } from "@nestjs/c
 
 import { IdCarrinhoDto } from "src/dto/remover-do-carrinho.dto";
 import { PrismaService } from "src/config/prisma.service";
-import { ShoppingCartDataDto } from "src/dto/shoppingCart.dto";
+import { DeleteUserCartDto, ShoppingCartDataDto } from "src/dto/shoppingCart.dto";
 import { Course, ShoppingCart } from "@prisma/client";
 
 
@@ -46,6 +46,16 @@ export class ShoppingCartService {
     return !!course
   }
 
+  async isTheCarOwnedByThisUser(deleteCartData: DeleteUserCartDto): Promise<Boolean>{
+    const cart = await this.prisma.shoppingCart.findFirst({
+      where: {
+        id: deleteCartData.cartId,
+      }
+    })
+
+    return cart?.userId === deleteCartData.userId?true:false
+  }
+
   async addToCart(shoppingCartData: ShoppingCartDataDto): Promise<void> {
     try {
       const [isProductInTheCart, isUserIdValid, isCourseIdValid] = await Promise.all([
@@ -87,6 +97,24 @@ export class ShoppingCartService {
       if (e instanceof HttpException) throw e;
       this.logger.error("Error at find user cart: ", e)
       throw new HttpException("An error occurred while retrieving the user's cart", 500)
+    }
+  }
+
+  async deleteCart(deleteCartData: DeleteUserCartDto): Promise<void>{
+    try{
+      const isTheCarOwnedByThisUser = await this.isTheCarOwnedByThisUser(deleteCartData);
+      if(!isTheCarOwnedByThisUser) throw new HttpException("This cart does not belong to this user or doesn't exists", HttpStatus.UNAUTHORIZED)
+
+      await this.prisma.shoppingCart.delete({
+        where: {
+          id: deleteCartData.cartId
+        }
+      }) 
+      
+    }catch(e){
+      if(e instanceof HttpException) throw e;
+      this.logger.error("Error while delete cart: ", e);
+      throw new HttpException("An error occurred while deleting the car", HttpStatus.INTERNAL_SERVER_ERROR)
     }
   }
 }

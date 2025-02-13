@@ -1,6 +1,6 @@
-import { Body, Get, Controller, Delete, HttpCode, Post, Param, Query, Put, UseGuards, HttpException } from "@nestjs/common";
+import { Body, Get, Controller, Delete, HttpCode, Post, Param, Query, Put, UseGuards, HttpException, HttpStatus } from "@nestjs/common";
 import { ShoppingCartService, UserCartInterface } from "./shoppingCart.service";
-import { ShoppingCartDataDto } from "src/dto/shoppingCart.dto";
+import { DeleteUserCartDto, ShoppingCartDataDto } from "src/dto/shoppingCart.dto";
 import { IdCarrinhoDto } from "src/dto/remover-do-carrinho.dto";
 import { AuthGuard } from "src/auth/auth.guard";
 
@@ -23,6 +23,14 @@ export class shoppingCartController {
   async findUserCart(@Param("userId") userId: number): Promise<UserCartInterface[]>{
     console.log(userId)
     return this.shoppingCartService.findUserCart(userId)
+  }
+
+
+  @HttpCode(HttpStatus.OK)
+  @Delete()
+  async removeCart(@Body() deleteCarData: DeleteUserCartDto ){
+    await this.shoppingCartService.deleteCart(deleteCarData);
+    return "Removed"
   }
 
   // @Post("carrinho")
