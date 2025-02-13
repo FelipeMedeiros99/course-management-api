@@ -1,4 +1,4 @@
-import { Injectable, Logger, HttpException, HttpStatus, HttpCode } from "@nestjs/common";
+import { Injectable, Logger, HttpException, HttpStatus } from "@nestjs/common";
 
 import { PrismaService } from "src/config/prisma.service";
 import { UserCartDto, ShoppingCartDataDto } from "src/dto/shoppingCart.dto";

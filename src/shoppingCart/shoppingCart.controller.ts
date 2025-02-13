@@ -1,4 +1,4 @@
-import { Body, Get, Controller, Delete, HttpCode, Post, Param, Query, Put, UseGuards, HttpException, HttpStatus } from "@nestjs/common";
+import { Body, Get, Controller, Delete, HttpCode, Post, Param, Put, UseGuards, HttpStatus } from "@nestjs/common";
 import { ShoppingCartService, UserCartInterface } from "./shoppingCart.service";
 import { UserCartDto, ShoppingCartDataDto } from "src/dto/shoppingCart.dto";
 import { AuthGuard } from "src/auth/auth.guard";
