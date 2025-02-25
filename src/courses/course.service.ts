@@ -18,6 +18,24 @@ export class CourseService {
     }
   }
 
+  async getCourseById(id: number): Promise<Course>{
+    try{
+      if(isNaN(id)){
+        throw new HttpException("Invalid course id", 404)
+      }
+      const course = await this.prisma.course.findFirst({
+        where: {
+          id
+        }
+      });
+      return course;
+    }catch(e: any){
+      if(e instanceof HttpException) throw e;
+      this.logger.error("Failed to get course: ", e);
+      throw new HttpException("An error occurred while retrieving the course", 500)
+    }
+  }
+
   async addCourse(courseData: CourseDataDto): Promise<void>{
     try{
       await this.prisma.course.create({
