@@ -1,6 +1,21 @@
 version: '3.8'
 
 services:
+  postgres:
+    container_name: course-management-postgres
+    image: postgres:latest
+    restart: always
+    
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "1234:5432"
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data 
+
   course-management:
     build: .
     container_name: course-management
@@ -10,25 +25,5 @@ services:
       - "5000:5000"
     depends_on:
       - postgres
-
-  postgres:
-    image: postgres:latest
-    restart: always
-    container_name: course-management-postgres
-    environment:
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB: ${POSTGRES_DB}
-    ports:
-      - "5432:5432"
-
-    volumes:
-      - postgres_data:/var/lib/postgresql/data 
-
-networks:
-  default:
-    external:
-      name: "course-management-network"
-
 volumes:
   postgres_data:

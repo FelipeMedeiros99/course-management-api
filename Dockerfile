@@ -1,17 +1,29 @@
-FROM node:20
+FROM node:lts-alpine3.17
 
 WORKDIR /app
 
-COPY package*.json . 
+COPY package.json package-lock.json ./
 
-RUN npm install 
+RUN npm ci
 
-COPY . . 
+COPY . .
 
-RUN npx prisma migrate deploy
+CMD ["sh", "-c", "npm run db:deploy && npm start"]
 
-RUN npx prisma generate 
+# FROM node:20
 
-RUN npm run build 
+# WORKDIR /app
 
-CMD [ "npm", "run", "start:prod" ]
+# COPY package*.json . 
+
+# RUN npm install 
+
+# COPY . . 
+
+# RUN wait-for-it postgres:5432 -- npx prisma migrate deploy
+
+# RUN npx prisma generate 
+
+# RUN npm run build 
+
+# CMD [ "npm", "run", "start:prod" ]
