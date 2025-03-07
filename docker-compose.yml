@@ -2,8 +2,7 @@ version: '3.8'
 
 services:
   course-management:
-    build:
-      context: .
+    build: .
     container_name: course-management
     env_file:
       - .env
