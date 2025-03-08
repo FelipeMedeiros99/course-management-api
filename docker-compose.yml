@@ -17,6 +17,7 @@ services:
 
   course-management-api:
     build: .
+    image: course-management-api
     container_name: course-management-api
     env_file:
       - .env
@@ -29,6 +30,7 @@ services:
     
   course-management-frontend:
     build: ~/frontend-projects/course-management/.
+    image: course-management-frontend
     container_name: course-management-frontend
     ports: 
       - "3001:3001"
