@@ -27,10 +27,13 @@ services:
       - postgres
     networks:
       - course-management-network
+      - web
 
 networks:
   course-management-network:
     driver: bridge
+  web: 
+    external: true
     
 volumes:
   postgres_data:
